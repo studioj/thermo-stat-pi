@@ -1,0 +1,10 @@
+[Unit]
+ Description=Central server which
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=uvicorn ~/thermo-stat-pi/central/app/main:app --reload
+
+ [Install]
+ WantedBy=multi-user.target
