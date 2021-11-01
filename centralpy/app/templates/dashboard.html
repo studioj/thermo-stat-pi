@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+Dashboard page
+<table id="temptable" class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>time</th>
+            <th>value</th>
+        </tr>
+    </thead>
+    <tr>
+        <td>00:00</td>
+        <td>21</td>
+    </tr>
+
+</table>
+<script>(document).ready(function() {
+    ('#temptable').DataTable();
+} );</script>
+{% endblock %}

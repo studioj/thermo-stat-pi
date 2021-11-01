@@ -5,6 +5,7 @@
  [Service]
  Type=idle
  WorkingDirectory=USERHOMEDIR/thermo-stat-pi/centralpy
+ Environment="PYTHONPATH=USERHOMEDIR/thermo-stat-pi/centralpy/app"
  ExecStart=PYENVPATHONBINPATH -m gunicorn --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 app.main:app
 
  [Install]
