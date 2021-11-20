@@ -1,6 +1,7 @@
 import datetime
 import os
 import pathlib
+from typing import Optional
 
 import uvicorn
 from fastapi import FastAPI, Request, Depends, BackgroundTasks
@@ -13,7 +14,7 @@ from models import Measurement, Base
 
 class TempSensReport(BaseModel):
     value: float
-    time: datetime.datetime
+    time: Optional[datetime.datetime]
     sensor_type: str
     unit: str
     location: str
@@ -21,7 +22,7 @@ class TempSensReport(BaseModel):
 
 class CO2SensReport(BaseModel):
     value: float
-    time: datetime.datetime
+    time: Optional[datetime.datetime]
     sensor_type: str
     unit: str
     location: str
@@ -60,7 +61,7 @@ async def temperature_measurement(temp_report: TempSensReport, db: Session = Dep
     """
     measurement = Measurement()
     measurement.value = temp_report.value
-    measurement.time = temp_report.time
+    measurement.time = temp_report.time or datetime.datetime.now()
     measurement.sensor = temp_report.sensor_type
     measurement.unit = temp_report.unit
     measurement.location = temp_report.location
@@ -81,7 +82,7 @@ async def temperature_measurement(co2_report: CO2SensReport, db: Session = Depen
     """
     measurement = Measurement()
     measurement.value = co2_report.value
-    measurement.time = co2_report.time
+    measurement.time = co2_report.time or datetime.datetime.now()
     measurement.sensor = co2_report.sensor_type
     measurement.unit = co2_report.unit
     measurement.location = co2_report.location
