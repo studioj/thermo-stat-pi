@@ -46,7 +46,7 @@ templates_dir = Jinja2Templates(directory=os.path.join(this_file_dir, "templates
 
 @app.get("/")
 async def home(request: Request, db: Session = Depends(get_db)):
-    measurements = db.query(Measurement).all()
+    measurements = db.query(Measurement).limit(500)
     return templates_dir.TemplateResponse("dashboard.html", {"request": request, "measurements": measurements})
 
 
