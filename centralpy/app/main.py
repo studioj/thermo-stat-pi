@@ -10,7 +10,6 @@ from sqlalchemy.orm import Session
 from db import SessionLocal, engine
 from pydantic import BaseModel
 from models import Measurement, Base
-from sqlalchemy import func
 
 
 class TempSensReport(BaseModel):
@@ -47,7 +46,7 @@ templates_dir = Jinja2Templates(directory=os.path.join(this_file_dir, "templates
 
 @app.get("/")
 async def home(request: Request, db: Session = Depends(get_db)):
-    measurements = db.query(Measurement).filter(func.date(Measurement.date_time) == datetime.date.today()).all()
+    measurements = db.query(Measurement).all()
     return templates_dir.TemplateResponse("dashboard.html", {"request": request, "measurements": measurements})
 
 
